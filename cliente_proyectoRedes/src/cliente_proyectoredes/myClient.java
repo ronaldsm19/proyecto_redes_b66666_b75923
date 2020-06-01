@@ -39,8 +39,6 @@ public class myClient  extends Thread{
             send = new PrintStream(socket.getOutputStream());//objeto que permite hacer envio
             receive = new BufferedReader(new InputStreamReader(socket.getInputStream()));//Objeto que recibo 
             
-            System.out.println(receive.readLine());
-            send.println("Holiiiiiii");
             while (true) {
                //System.out.println(receive.readLine());
                //send.println("Holiiiiiii");

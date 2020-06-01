@@ -42,7 +42,7 @@ public class EchoMultiServer extends Thread {
                 receive = new BufferedReader(new InputStreamReader(socket.getInputStream()));//Objeto que recibo
 
                 while (true) {
-                    //send.println("Holaaa");
+                    send.println("Holaaa");
                     System.out.println(receive.readLine());
                 }
 //                socket.close();
