@@ -1,9 +1,13 @@
 
 package GUI;
 
+import Data.Conexion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -65,10 +69,23 @@ public class windowServer extends JInternalFrame implements ActionListener, Runn
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource().equals(btnRegistrar)) {
-            File directorio = new File("C:/Users/Graciela Porras/Desktop/U/directorio_nuevo");
+            String ruta;
+            //ruta ="C:/Users/Graciela Porras/Desktop/U/"+this.tfUsuario.getText(); // rutaGraciPorras
+            ruta = "C:/Users/ronal/Desktop/VII Semestre 2020/Redes y Comunicaciones de datos/Proyecto/Usuarios/"+this.tfUsuario.getText();//Ruta Fronital
+            File directorio = new File(ruta);
             if (!directorio.exists()) {
                 if (directorio.mkdirs()) {
                     System.out.println("Directorio creado");
+                    Conexion mysql= new Conexion();
+                    try {
+                        mysql.conectar();
+                        mysql.insertarUsuario(this.tfUsuario.getText(), this.tfContrasenna.getText(), ruta);
+                        mysql.selectUsuario();
+                        this.tfUsuario.setText("");
+                        this.tfContrasenna.setText("");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(windowServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     System.out.println("Error al crear directorio");
                 }
